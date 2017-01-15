@@ -25,10 +25,13 @@ ubuntu 16.04 를 사용하고 싶다면 'ubuntu/xenial64' 를 검색하며 된�
 
 ### Vagrantfile 생성
 ```vagrant init``` 는 원하는 box 로 Vagrantfile 을 생성하는 명령어이다. ```Vagrantfile``` 은 vagrant 가 가상머신을 생성하기 위한 여러가지 설정을 명시한 파일이다. 아래 명령어를 통해 ubuntu/xenial64 box를 사용하는 Vagrantfile 을 생성한다.
+
 ```
 vagrant init ubuntu/xenial64
 ```
+
 위 명령어를 통해 생성된 ```Vagrantfile``` 일부를 살펴보면 다음과 같다.
+
 ```
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -46,14 +49,18 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
 ```
+
 ```config.vm.box``` 에 우리가 원하는 box 이름이 들어간 것을 확인할 수 있다.
 
 ### 가상머신 시작하기
 vagrant 로 가상머신을 시작하려면 반드시 명령어를 실행하는 위치에 Vagrantfile 이 존재해야한다. 실행은 아래 명령어로 간단하게 할 수 있다.
+
 ```
 vagrant up
 ```
+
 명령어를 실행하면 아래와 같은 메세지가 나오면서 가상머신이 이미지를 다운로드 받고 실행시킨다.
+
 ```
 nexusz99@trinity:~/work/nhnent/blog$ vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
@@ -86,6 +93,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 
 ### 가상머신 사용하기
 생성된 가상머신에 들어가는 방법은 ssh 가 대표적이다. 아래 명령어를 통해 생성된 가상머신에 접속할 수 있다.
+
 ```
 $ vagrant ssh
 
@@ -107,6 +115,8 @@ Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-59-generic x86_64)
 Last login: Sun Jan 15 08:43:34 2017 from 10.0.2.2
 ubuntu@ubuntu-xenial:~$
 ```
+
 ----
+
 ## 4. 마무리
 지금까지 vagrant 로 빠르게 가상머신을 생성하고 이용하는 방법에 대해 알아보았다. vagrant 를 이용하면 매번 가상머신을 생성하고 운영체제를 설치할 필요없이 빠르게 새로운 환경을 구축할 수 있으며, Vagrantfile 에서 설정을 통해 port forwarding 등 다양하게 설정하면서 이용할 수 있다.
