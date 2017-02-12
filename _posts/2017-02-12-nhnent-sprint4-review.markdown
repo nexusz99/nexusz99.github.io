@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "NHN ENtertainment 토스트 루키 기술교육 2월 1주차 회고"
-date:   2017-01-12 06:09:38 +0000
+date:   2017-02-12 06:09:38 +0000
 categories: diary
 ---
 
