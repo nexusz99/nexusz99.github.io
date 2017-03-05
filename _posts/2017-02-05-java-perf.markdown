@@ -1,0 +1,117 @@
+---
+layout: post
+title:  "자바 성능 과제"
+date:   2017-02-05 06:09:38 +0000
+categories: java homework
+---
+### Map, Set, List, Queue 의 차이점을 서술하시오
+
+| 자료구조 | 설명 |
+|---|---|
+| Map | Key/Value 쌍으로 구성된 객체 집합. 중복 키는 허용하지 않는다. |
+| Set | 중복을 허용하지 않는 집합|
+| List | 순서가 있는 집합. 인덱스로 값을 찾을 수 있음 |
+| Queue | FIFO로 객체를 처리 |
+
+### reflection API 로 클래스 정보 출력
+```java
+public void printClassInfo(Class cls) {
+    System.out.println("==== CLASS INFORMATION ====");
+    System.out.println("Class Name : " + cls.getName());
+    System.out.println("Class Type Name : " + cls.getTypeName()+"\n");
+    Field fields[] = cls.getFields();
+    
+    System.out.println("===== Fields =====");
+    for(Field f : fields) {
+        System.out.println(f.getType().getName() + " : " + f.getName());
+    }
+    
+    System.out.println("===== Methods =====");
+    Method methods[] = cls.getMethods();
+    for(Method method : methods) {
+        System.out.println(method.getReturnType().getName() + " : " + method.getName());
+    }
+}
+```
+
+### SAX 와 DOM 특징
+* SAX
+ * 순차적 방식으로 XML을 처리
+ * 각 XML 노드를 읽는 대로 처리하기 때문에 메모리 부담이 적다
+ * 이미 읽은 데이터 구조에 대해 수정/삭제가 어렵다
+* DOM
+ * 모든 XML을 읽어서 트리로 만든 뒤 처리
+ * 모든 XML을 메모리에 올리기에 메모리 부담이 크다
+ * 데이터 구조를 쉽게 수정/삭제 할 수 있다.
+
+### JMX 란?
+JMX는 Java Management Extensions 의 약자로, 자바 기반의 어플리케이션을 모니터링 하기 위해 만든 기술이다. JDK 5.0 부터 본격적으로 지원되었고, 총 4단계 레벨이 존재한다.
+
+* Instrumentation Level
+ * 하나 이상의 MBeans 를 제공. 이 MBeans 에서 리소스 정보 취합 후 에이전트로 전달
+* Agent Level
+ * 에이전트를 구현하기 위한 스펙. 에이전트는 리소스를 관리하는 역할 수행
+* Distributed Services Level
+ * JMX 관리자를 구현하기 위한 인터페이스와 컴포넌트 제공
+* Additional Management Protocol APIS
+
+
+### JMX 를 모니터링 할 수 있는 도구
+* monitis
+ * http://www.monitis.com/java-jmx-monitoring
+* JConsole
+ * http://openjdk.java.net/tools/svc/jconsole/
+* Nagios
+ * https://www.nagios.com/solutions/jmx-monitoring/
+
+### Web Access Log 패턴
+* %h : 클라이언트 IP
+* %l : 클라이언트의 identd 데몬이 동작하여 클라이언트 RFC 1413 신원 정보를 표시
+* %u : HTTP 인증을 통해 확인된 문서를 요청한 사용자의 ID
+* %t : 서버가 요청을 처리한 시간
+* %r : Request 정보
+* %>s : 서버가 클라이언트에게 보내는 최종 상태 코드
+* %b : Response 데이터의 크기
+
+
+### GC 종류
+* Serial Collector
+* Parallel Collector
+* Parallel Compacting Collector
+* Concurrent Mark-Sweep(CMS) Collector
+* Garbage First Collector
+
+## GC 모니터링 툴
+* GC Portal
+ * http://www.oracle.com/technetwork/articles/java/gcportal-136937.html
+* jstat
+ * http://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html
+* Visual GC
+ * http://www.oracle.com/technetwork/java/visualgc-136680.html
+
+
+### JMH 성능 측정
+```
+Benchmark                              Mode  Cnt    Score   Error  Units
+ListBenchMark.arrayListAddTest         avgt   20    9.114 ± 0.179  us/op
+ListBenchMark.arrayListDeleteTest      avgt   20   57.076 ± 1.459  us/op
+ListBenchMark.arrayListGetTest         avgt   20    0.911 ± 0.027  us/op
+ListBenchMark.linkedListAddTest        avgt   20    8.363 ± 0.170  us/op
+ListBenchMark.linkedListDeleteTest     avgt   20   10.620 ± 0.181  us/op
+ListBenchMark.linkedListGetTest        avgt   20  369.190 ± 6.950  us/op
+ListBenchMark.vectorAddTest            avgt   20    8.155 ± 0.337  us/op
+ListBenchMark.vectorDeleteTest         avgt   20   57.592 ± 1.554  us/op
+ListBenchMark.vectorGetTest            avgt   20   24.130 ± 0.478  us/op
+MapBenchMark.hashMapAddTest            avgt   20   35.971 ± 0.511  us/op
+MapBenchMark.hashMapRandGetTest        avgt   20    6.275 ± 0.174  us/op
+MapBenchMark.hashMapSeqGetTest         avgt   20    5.063 ± 0.096  us/op
+MapBenchMark.hashTableAddTest          avgt   20   40.841 ± 0.759  us/op
+MapBenchMark.hashTableRandGetTest      avgt   20   23.602 ± 0.375  us/op
+MapBenchMark.hashTableSeqGetTest       avgt   20   23.049 ± 0.484  us/op
+MapBenchMark.linkedHashMapAddTest      avgt   20   37.706 ± 0.605  us/op
+MapBenchMark.linkedHashMapRandGetTest  avgt   20    7.018 ± 0.094  us/op
+MapBenchMark.linkedHashMapSeqGetTest   avgt   20    5.482 ± 0.113  us/op
+MapBenchMark.treeMapAddTest            avgt   20   71.832 ± 1.312  us/op
+MapBenchMark.treeMapRandGetTest        avgt   20   67.521 ± 1.482  us/op
+MapBenchMark.treeMapSeqGetTest         avgt   20   46.288 ± 1.069  us/op
+```
